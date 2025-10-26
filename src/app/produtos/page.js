@@ -1,108 +1,112 @@
-'use client'
-
-import { useState } from 'react'
-import ProductCard from '@/components/ProductCard'
+// app/produtos/page.js
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import WhatsAppButton from '../../components/WhatsAppButton'
+import ProductCard from '../../components/ProductCard'
 
 export default function Produtos() {
-  const [activeFilter, setActiveFilter] = useState('todos')
-
-  const products = [
+  const allProducts = [
     {
       id: 1,
-      name: "Porta de Madeira Maciça",
-      description: "Porta clássica em madeira de lei com acabamento premium",
+      name: "Porta de Madeira Maciça Nobre",
+      description: "Feita em madeira de lei com acabamento envernizado premium",
       price: "R$ 1.200,00",
-      category: "madeira",
-      image: "/images/porta-madeira.jpg"
+      image: "/images/porta-madeira-nobre.jpg",
+      category: "Madeira Maciça",
+      features: ["Madeira sustentável", "Acabamento envernizado", "Durabilidade garantida"]
     },
     {
       id: 2,
-      name: "Porta de Alumínio",
-      description: "Modernas portas de alumínio para áreas externas",
-      price: "R$ 850,00",
-      category: "aluminio",
-      image: "/images/porta-aluminio.jpg"
+      name: "Porta de Correr de Vidro Temperado",
+      description: "Elegância moderna com vidro temperado de 8mm",
+      price: "R$ 2.500,00",
+      image: "/images/porta-vidro-temperado.jpg",
+      category: "Vidro e Alumínio",
+      features: ["Vidro temperado 8mm", "Alumínio anodizado", "Sistema de correr suave"]
     },
     {
       id: 3,
-      name: "Porta Laminada",
-      description: "Elegância e praticidade para ambientes internos",
-      price: "R$ 680,00",
-      category: "laminada",
-      image: "/images/porta-laminada.jpg"
+      name: "Porta de Aço com Isolamento",
+      description: "Segurança e conforto térmico/acústico",
+      price: "R$ 1.800,00",
+      image: "/images/porta-aco-isolamento.jpg",
+      category: "Aço",
+      features: ["Isolamento térmico", "Proteção acústica", "Fechadura multiponto"]
     },
     {
       id: 4,
-      name: "Porta de Correr",
-      description: "Ideal para economizar espaço em ambientes modernos",
-      price: "R$ 1.500,00",
-      category: "aluminio",
-      image: "/images/porta-correr.jpg"
+      name: "Porta de MDF Laminado",
+      description: "Custo-benefício com ótimo acabamento",
+      price: "R$ 650,00",
+      image: "/images/porta-mdf.jpg",
+      category: "MDF",
+      features: ["Diversas cores", "Fácil limpeza", "Instalação rápida"]
     },
     {
       id: 5,
-      name: "Porta de MDF",
-      description: "Acabamento perfeito para interiores residenciais",
-      price: "R$ 550,00",
-      category: "laminada",
-      image: "/images/porta-mdf.jpg"
+      name: "Porta pivotante de Madeira",
+      description: "Design arrojado para ambientes modernos",
+      price: "R$ 3.200,00",
+      image: "/images/porta-pivotante.jpg",
+      category: "Design",
+      features: ["Sistema pivotante", "Design exclusivo", "Instalação especializada"]
     },
     {
       id: 6,
-      name: "Porta de Eucalipto",
-      description: "Sustentabilidade e beleza em um só produto",
-      price: "R$ 950,00",
-      category: "madeira",
-      image: "/images/porta-eucalipto.jpg"
+      name: "Porta Sanfonada de PVC",
+      description: "Praticidade para áreas internas",
+      price: "R$ 450,00",
+      image: "/images/porta-sanfonada.jpg",
+      category: "PVC",
+      features: ["Economia de espaço", "Fácil instalação", "Manutenção simples"]
     }
   ]
 
-  const filters = [
-    { id: 'todos', label: 'Todos' },
-    { id: 'madeira', label: 'Madeira' },
-    { id: 'aluminio', label: 'Alumínio' },
-    { id: 'laminada', label: 'Laminadas' }
-  ]
-
-  const filteredProducts = activeFilter === 'todos' 
-    ? products 
-    : products.filter(product => product.category === activeFilter)
+  const categories = ["Todos", "Madeira Maciça", "Vidro e Alumínio", "Aço", "MDF", "Design", "PVC"]
 
   return (
-    <div className="pt-20 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-center mb-8">Nossos Produtos</h1>
-        
-        {/* Filtros */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {filters.map(filter => (
-            <button
-              key={filter.id}
-              onClick={() => setActiveFilter(filter.id)}
-              className={`px-6 py-2 rounded-full font-medium transition-colors ${
-                activeFilter === filter.id
-                  ? 'bg-[var(--primary-brown)] text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {filter.label}
-            </button>
-          ))}
+    <div className="min-h-screen bg-white">
+      <Header />
+      
+      {/* Hero Produtos */}
+      <section className="bg-gradient-to-r from-green-900 to-brown-800 text-white py-20 px-4">
+        <div className="container mx-auto max-w-7xl text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">Nossos Produtos</h1>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto">
+            Descubra nossa linha completa de portas para todos os ambientes e estilos
+          </p>
         </div>
+      </section>
 
-        {/* Grid de Produtos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600">Nenhum produto encontrado para esta categoria.</p>
+      {/* Filtros */}
+      <section className="py-8 px-4 bg-gray-50 border-b border-gray-200">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-wrap gap-4 justify-center">
+            {categories.map(category => (
+              <button 
+                key={category}
+                className="bg-white hover:bg-green-800 hover:text-white text-gray-700 px-6 py-3 rounded-lg font-medium transition-all duration-300 border border-gray-300 hover:border-green-800"
+              >
+                {category}
+              </button>
+            ))}
           </div>
-        )}
-      </div>
+        </div>
+      </section>
+
+      {/* Grid de Produtos */}
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {allProducts.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+      <WhatsAppButton />
     </div>
   )
 }

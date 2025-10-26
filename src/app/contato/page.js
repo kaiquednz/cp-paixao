@@ -1,7 +1,10 @@
+// app/contato/page.js
 'use client'
 
 import { useState } from 'react'
-import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import WhatsAppButton from '../../components/WhatsAppButton'
 
 export default function Contato() {
   const [formData, setFormData] = useState({
@@ -21,8 +24,8 @@ export default function Contato() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Aqui você integraria com EmailJS ou Formspree
-    console.log('Dados do formulário:', formData)
+    // Aqui você pode integrar com um serviço de email ou API
+    console.log('Formulário enviado:', formData)
     alert('Mensagem enviada com sucesso! Entraremos em contato em breve.')
     setFormData({
       nome: '',
@@ -33,204 +36,231 @@ export default function Contato() {
     })
   }
 
-  const contatos = [
+  const contactInfo = [
     {
-      icon: <Phone className="w-6 h-6" />,
+      icon: "📞",
       title: "Telefone",
-      content: "(11) 9999-9999",
-      link: "tel:5511999999999"
+      info: "(11) 9999-9999",
+      link: "tel:11999999999"
     },
     {
-      icon: <Mail className="w-6 h-6" />,
+      icon: "📧",
       title: "Email",
-      content: "contato@casadasportaspaixao.com.br",
-      link: "mailto:contato@casadasportaspaixao.com.br"
+      info: "contato@casadasportaspaixao.com",
+      link: "mailto:contato@casadasportaspaixao.com"
     },
     {
-      icon: <MapPin className="w-6 h-6" />,
+      icon: "📍",
       title: "Endereço",
-      content: "Rua Exemplo, 123 - São Paulo, SP",
+      info: "Rua das Portas, 123 - Centro, São Paulo - SP",
       link: "https://maps.google.com"
     },
     {
-      icon: <Clock className="w-6 h-6" />,
+      icon: "🕒",
       title: "Horário de Funcionamento",
-      content: "Seg - Sex: 8h às 18h | Sáb: 8h às 12h",
+      info: "Seg - Sex: 8h às 18h | Sáb: 8h às 12h",
       link: null
     }
   ]
 
   return (
-    <div className="pt-20 min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[var(--accent-dark)] to-[var(--primary-brown)] text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Entre em Contato</h1>
-          <p className="text-xl max-w-3xl mx-auto">
-            Estamos aqui para ajudar! Fale conosco e descubra como podemos transformar seu espaço.
+    <div className="min-h-screen bg-white">
+      <Header />
+      
+      {/* Hero Contato */}
+      <section className="bg-gradient-to-r from-green-900 to-brown-800 text-white py-20 px-4">
+        <div className="container mx-auto max-w-7xl text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">Entre em Contato</h1>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto">
+            Pronto para transformar sua casa? Fale conosco!
           </p>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Informações de Contato */}
-          <div className="lg:col-span-1">
-            <h2 className="text-2xl font-bold mb-8">Nossos Contatos</h2>
-            <div className="space-y-6">
-              {contatos.map((contato, index) => (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className="text-[var(--primary-brown)] mt-1">
-                    {contato.icon}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">{contato.title}</h3>
-                    {contato.link ? (
-                      <a 
-                        href={contato.link}
-                        target={contato.link.includes('http') ? '_blank' : '_self'}
-                        rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-[var(--primary-brown)] transition-colors"
-                      >
-                        {contato.content}
-                      </a>
-                    ) : (
-                      <p className="text-gray-600">{contato.content}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* WhatsApp Direto */}
-            <div className="mt-8 p-6 bg-green-50 rounded-lg border border-green-200">
-              <h3 className="font-bold text-green-800 mb-2">Atendimento Rápido</h3>
-              <p className="text-green-700 mb-4">Fale diretamente conosco pelo WhatsApp</p>
-              <a 
-                href="https://wa.me/5511999999999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-flex items-center"
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Abrir WhatsApp
-              </a>
-            </div>
-          </div>
-
-          {/* Formulário de Contato */}
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-8">Envie sua Mensagem</h2>
-            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-2">
-                    Nome Completo *
-                  </label>
-                  <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    value={formData.nome}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary-brown)] focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary-brown)] focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="telefone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Telefone *
-                  </label>
-                  <input
-                    type="tel"
-                    id="telefone"
-                    name="telefone"
-                    value={formData.telefone}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary-brown)] focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="assunto" className="block text-sm font-medium text-gray-700 mb-2">
-                    Assunto *
-                  </label>
-                  <select
-                    id="assunto"
-                    name="assunto"
-                    value={formData.assunto}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary-brown)] focus:border-transparent"
-                  >
-                    <option value="">Selecione um assunto</option>
-                    <option value="orcamento">Orçamento</option>
-                    <option value="duvida">Dúvida</option>
-                    <option value="reclamacao">Reclamação</option>
-                    <option value="elogio">Elogio</option>
-                    <option value="outro">Outro</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="mensagem" className="block text-sm font-medium text-gray-700 mb-2">
-                  Mensagem *
-                </label>
-                <textarea
-                  id="mensagem"
-                  name="mensagem"
-                  rows="6"
-                  value={formData.mensagem}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary-brown)] focus:border-transparent"
-                  placeholder="Conte-nos como podemos ajudar..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="bg-[var(--primary-brown)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[var(--accent-dark)] transition-colors flex items-center"
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Enviar Mensagem
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Mapa */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold mb-6">Onde Estamos</h2>
-          <div className="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-              <p className="text-gray-600">Mapa do Google Maps será integrado aqui</p>
-              <p className="text-sm text-gray-500 mt-2">
-                Rua Exemplo, 123 - São Paulo, SP
+      {/* Formulário e Informações */}
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Formulário */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+                Envie sua <span className="text-green-800">Mensagem</span>
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Preencha o formulário abaixo e entraremos em contato o mais rápido possível
               </p>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Nome *
+                    </label>
+                    <input
+                      type="text"
+                      name="nome"
+                      value={formData.nome}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all duration-300"
+                      placeholder="Seu nome completo"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all duration-300"
+                      placeholder="seu@email.com"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Telefone *
+                    </label>
+                    <input
+                      type="tel"
+                      name="telefone"
+                      value={formData.telefone}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all duration-300"
+                      placeholder="(11) 99999-9999"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Assunto *
+                    </label>
+                    <select
+                      name="assunto"
+                      value={formData.assunto}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all duration-300"
+                    >
+                      <option value="">Selecione um assunto</option>
+                      <option value="orcamento">Solicitar Orçamento</option>
+                      <option value="duvida">Dúvida sobre Produtos</option>
+                      <option value="servico">Serviços de Instalação</option>
+                      <option value="manutencao">Manutenção e Reparo</option>
+                      <option value="outro">Outro</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Mensagem *
+                  </label>
+                  <textarea
+                    name="mensagem"
+                    value={formData.mensagem}
+                    onChange={handleChange}
+                    required
+                    rows="6"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all duration-300"
+                    placeholder="Descreva sua necessidade..."
+                  ></textarea>
+                </div>
+                
+                <button
+                  type="submit"
+                  className="w-full bg-green-800 hover:bg-green-900 text-white py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  Enviar Mensagem
+                </button>
+              </form>
+            </div>
+            
+            {/* Informações de Contato */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+                Nossos <span className="text-green-800">Canais</span>
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Escolha a forma de contato que preferir. Estamos aqui para ajudar!
+              </p>
+              
+              <div className="space-y-6">
+                {contactInfo.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4 p-6 bg-gray-50 rounded-2xl hover:bg-green-50 transition-all duration-300">
+                    <div className="text-2xl">{item.icon}</div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800 text-lg">{item.title}</h3>
+                      {item.link ? (
+                        <a 
+                          href={item.link} 
+                          className="text-gray-600 hover:text-green-800 transition-colors duration-300"
+                        >
+                          {item.info}
+                        </a>
+                      ) : (
+                        <p className="text-gray-600">{item.info}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* WhatsApp Quick Action */}
+              <div className="mt-8 p-6 bg-green-50 rounded-2xl border border-green-200">
+                <h3 className="font-semibold text-gray-800 text-lg mb-3">Atendimento Rápido</h3>
+                <p className="text-gray-600 mb-4">
+                  Prefere falar diretamente? Clique abaixo para conversar no WhatsApp
+                </p>
+                <a 
+                  href="https://wa.me/5511999999999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                >
+                  <span className="mr-2">💬</span>
+                  Abrir WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Mapa */}
+      <section className="py-20 px-4 bg-beige-50">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">
+            Nossa <span className="text-green-800">Localização</span>
+          </h2>
+          
+          <div className="bg-gradient-to-br from-green-100 to-brown-100 rounded-2xl p-8 h-96 flex items-center justify-center">
+            <div className="text-center">
+              <span className="text-6xl">🗺️</span>
+              <p className="text-xl font-semibold text-gray-700 mt-4">
+                Mapa da Localização
+              </p>
+              <p className="text-gray-600 mt-2">
+                Rua das Portas, 123 - Centro, São Paulo - SP
+              </p>
+              <button className="mt-4 bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300">
+                Abrir no Google Maps
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+      <WhatsAppButton />
     </div>
   )
 }

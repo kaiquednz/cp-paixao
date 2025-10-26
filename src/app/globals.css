@@ -2,17 +2,20 @@
 @import "tailwindcss";
 
 :root {
-  --verde-principal: #2E8B57;
-  --verde-escuro: #1E6B47;
-  --marrom-claro: #8B4513;
-  --marrom-escuro: #654321;
-  --bege: #F5F5DC;
+  --verde-principal: #1a4d2e;
+  --verde-escuro: #0f3b23;
+  --verde-dourado: #4a7c59;
+  --marrom-claro: #6d4c3d;
+  --marrom-escuro: #4a3529;
+  --bege: #f8f5f0;
+  --dourado: #d4af37;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #fefefe;
 }
 
 * {
