@@ -1,6 +1,6 @@
 // components/WhatsAppButton.js
 export default function WhatsAppButton() {
-  const phoneNumber = "5511999999999" // Substitua pelo número real
+  const phoneNumber = "5516982454755"
   const message = "Olá! Gostaria de mais informações sobre as portas."
 
   return (
